@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 # Create your views here.
@@ -16,6 +17,8 @@ from Crypto.Random import get_random_bytes
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 
+buffer_size = 65536  # 64kb
+
 
 class FileListView(LoginRequiredMixin,ListView):
     """ list view of encrypted files """
@@ -27,17 +30,16 @@ class FileListView(LoginRequiredMixin,ListView):
         return queryset
 
 
-def handle_upload_file(request,file):
+def handle_upload_file(request,file, fileName):
 
     destination = os.path.join(settings.MEDIA_ROOT,"user_"+ request.user.username,"file")
     if not os.path.exists(destination):
         os.makedirs(destination)
 
-    file_path = destination + "\\" + file.name
+    file_path = destination + "\\" + fileName  + os.path.splitext(file.name)[1]
     output_file = open(file_path + '.encrypted', 'wb+')
 
     key = get_random_bytes(32)  # Use a stored / generated key
-    buffer_size = 65536  # 64kb
     cipher_encrypt = AES.new(key, AES.MODE_CFB)
     output_file.write(cipher_encrypt.iv)
 
@@ -61,7 +63,9 @@ def file_uplod_to_server(request):
         form = EncryptedFileForm(request.POST, request.FILES)
         if form.is_valid():
             form_save = form.save(commit=False)
-            file, key = handle_upload_file(request,request.FILES['file_url'])
+            fileInput = request.FILES['file_url']
+            fileName = form.cleaned_data.get('file_name')
+            file, key = handle_upload_file(request, fileInput, fileName)
             form_save.file_url = file
             form_save.file_key = key
             form_save.user = request.user
@@ -72,14 +76,46 @@ def file_uplod_to_server(request):
         'form' : form
     })
 
+def decripty_file(request,encypted_file):
 
+
+    input_file = open(encypted_file.file_url.path, 'rb')
+    output_file = open(encypted_file.file_url.path[:-10], 'wb')
+    iv = input_file.read(16)
+
+    cipher_encrypt = AES.new(encypted_file.file_key, AES.MODE_CFB, iv=iv)
+
+    # Keep reading the file into the buffer, decrypting then writing to the new file
+    buffer = input_file.read(buffer_size)
+    while len(buffer) > 0:
+        decrypted_bytes = cipher_encrypt.decrypt(buffer)
+        output_file.write(decrypted_bytes)
+        buffer = input_file.read(buffer_size)
+
+    # Close the input and output files
+    input_file.close()
+    output_file.close()
+    return output_file.name
+
+@csrf_exempt
 def download_encrypted_file(request, pk):
     """ reply to ajax request to download """
     encypted_file = get_object_or_404(EncryptedFile, pk=pk)
-    print()
+
+    isAutheticated = False
+
+    password = request.POST.get('data')
+    output_file ="",
+    print(password, encypted_file.file_password)
+    if password == encypted_file.file_password:
+        isAutheticated=True
+        output_file = decripty_file(request,encypted_file)
 
     data = {
-        "file" : encypted_file.file_url.url[:-10]
+        "isAutheticated": isAutheticated,
+        "file" : output_file,
+        "fileName" : encypted_file.file_name,
+
     }
 
     return JsonResponse(data, safe=False)

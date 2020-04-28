@@ -22,9 +22,8 @@
                 {% for item in object_list %}
                     <div class="col s4">
                         <div class="card image-card">
-                            <h4 class="center-align" style="padding: 18px;">{{ item.file_name }}</h4>
+                            <h4 class="center-align" style="padding: 18px 4px;">{{ item.file_name }}</h4>
                             <div class="card-content">
-                                <a id="image_url" href="#"></a>
                                 <p> uploaded at : {{ item.created_at }}</p>
                             </div>
                             <div class="card-action">
@@ -48,24 +47,56 @@
 
         $(document).ready(function () {
 
-                dowloadImageUsingKey('2')
 
             const image_url = document.getElementById('image_url');
 
             $('.image-card #dowload-btn').click(function (e) {
 
+                let password = prompt("Enter password ");
+
                 const itemId = $(this).attr('data-id');
+                if (password !== "") {
+                    dowloadImageUsingKey($(this), itemId, password);
+                }else{
+                    alert("nothing Entered")
+                }
 
 
             });
 
-            function dowloadImageUsingKey(itemId) {
+            function dowloadImageUsingKey(element, itemId,password) {
                 $.ajax({
-                    url: "/files/download/"+parseInt(itemId),
-                    method: 'get',
+                    url: "/files/download/" + parseInt(itemId),
+                    method: 'post',
+                    data: {
+                        'data': password
+                    },
                     success: data => {
                         console.log(data)
-                        image_url.innerText = data.file
+
+                        if (data.isAutheticated) {
+                            let a = document.createElement('a');
+
+                            let icon = document.createElement('i');
+                            icon.className = "material-icons";
+                            icon.innerText = "cloud_download";
+
+                            a.appendChild(icon)
+                            a.href = "/media/" + data.file
+                            a.style.fontWeight = "bold";
+                            a.style.textAlign = "right";
+                            a.style.margin = "32px 4px";
+                            a.style.textTransform = "uppercase";
+
+
+                            element.css('text-align', 'center')
+
+                            element.parent().parent().append(a)
+                        } else {
+                            alert("incorrect key")
+                        }
+
+
                     },
                     failure: error => console.log(error)
                 })
