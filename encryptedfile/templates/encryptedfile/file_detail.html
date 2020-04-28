@@ -1,0 +1,77 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <!-- {% include 'base/navbar.html' %} -->
+
+    <section>
+        {% include 'base/second_navbar.html' %}
+
+        <div class="container mt-5">
+
+            <div class="row">
+                <div class="col s6">
+                    <h3>{{ object.file_name | capfirst }}</h3>
+                    <h5>Owner: {{ user | capfirst }}</h5>
+                    <p>{{ encryptedfile.created_at }}</p>
+                    <input placeholder="Enter key To Download" data-id="{{ encryptedfile.id }}" type="text" id="password_ctrl" >
+                    <a href="#" id="element-id" style="display: none">{{ encryptedfile.file_name }}</a>
+
+                </div>
+                <div class="col s6">
+                     <a class="waves-effect blue waves-light btn"><i class="material-icons left">edit</i>edit</a>
+                    <a class="waves-effect red waves-light btn"><i class="material-icons left">delete</i>delete</a>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block js %}
+
+
+    <script>
+
+
+
+        document.getElementById('password_ctrl').addEventListener('change', function (ev) {
+            let itemId = this.getAttribute('data-id');
+
+            let element = this
+            let value = ev.target.value;
+            if (value.trim() !== "") {
+                console.log("inside this")
+
+                    $.ajax({
+                    url: "/files/download/" + parseInt(itemId),
+                    method: 'post',
+                    data: {
+                        'data': value
+                    },
+                    success: data => {
+                        console.log(data)
+
+                        if (data.isAutheticated) {
+                            let element = document.getElementById('element-id');
+                            element.style.display ="grid"
+                            element.setAttribute('href',"/media/"+ data.file)
+
+                        } else {
+                            alert("incorrect password, Try again")
+                        }
+
+
+                    },
+                    failure: error => console.log(error)
+                })
+            }
+
+
+        });
+
+    </script>
+
+
+{% endblock %}

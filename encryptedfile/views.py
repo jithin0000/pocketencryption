@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 # Create your views here.
@@ -132,3 +133,8 @@ class AddEncryptedField(LoginRequiredMixin,CreateView):
         self.object.user = self.request.user
         self.object.save()
         return redirect(self.get_success_url())
+
+class FileDetailView(LoginRequiredMixin, DetailView):
+    """ detail view for file """
+    model = EncryptedFile
+    template_name = "encryptedfile/file_detail.html"
