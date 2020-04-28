@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse
+
 from customuser.models import MyUser
 
 def user_file_upload(instance, filename):
@@ -14,6 +16,9 @@ class EncryptedFile(models.Model):
     file_key = models.BinaryField(editable=False,max_length=255)
     file_url = models.FileField(upload_to=user_file_upload)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('file_detail',kwargs={ 'pk', self.id})
 
     def __str__(self):
         return self.file_name

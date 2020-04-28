@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <!-- {% include 'base/navbar.html' %} -->
+
+    <section>
+        {% include 'base/second_navbar.html' %}
+
+        <div class="container mt-5">
+
+            <div class="row">
+                <div class="col s6">
+                    <form method="post" >
+                          Are you sure you want to Delete This {{ object }}?
+                        {% csrf_token %}
+                    <input type="submit" class="btn red" value="confirm" >
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block js %}
+
+
+    <script>
+
+    </script>
+
+
+{% endblock %}

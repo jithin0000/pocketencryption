@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 # Create your views here.
 from .models import EncryptedFile
@@ -138,3 +138,15 @@ class FileDetailView(LoginRequiredMixin, DetailView):
     """ detail view for file """
     model = EncryptedFile
     template_name = "encryptedfile/file_detail.html"
+
+class FileUpdateView(LoginRequiredMixin, UpdateView):
+    """ update view for encrypted file"""
+    model = EncryptedFile
+    form_class = EncryptedFileForm
+    template_name = 'encryptedfile/add_file.html'
+
+class FileDeleteView(LoginRequiredMixin, DeleteView):
+    """ delete view for file"""
+    model = EncryptedFile
+    template_name = "encryptedfile/file_delete.html"
+    success_url = "/files"
