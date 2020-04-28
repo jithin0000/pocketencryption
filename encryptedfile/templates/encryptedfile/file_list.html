@@ -1,0 +1,77 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <!-- {% include 'base/navbar.html' %} -->
+
+    <section>
+        {% include 'base/second_navbar.html' %}
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col">
+                    <h3> Files </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'add_file' %}" class="btn">upload new file</a>
+                </div>
+            </div>
+
+            <div class="row">
+                {% for item in object_list %}
+                    <div class="col s4">
+                        <div class="card image-card">
+                            <h4 class="center-align" style="padding: 18px;">{{ item.file_name }}</h4>
+                            <div class="card-content">
+                                <a id="image_url" href="#"></a>
+                                <p> uploaded at : {{ item.created_at }}</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#" class="blue-text">view file</a>
+                                <a data-id="{{ item.id }}" id="dowload-btn" href="#"><i class="material-icons">vertical_align_bottom</i></a>
+                                <a href="#"><i class="material-icons">delete</i></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}
+
+
+{% block js %}
+    <script>
+
+        $(document).ready(function () {
+
+                dowloadImageUsingKey('2')
+
+            const image_url = document.getElementById('image_url');
+
+            $('.image-card #dowload-btn').click(function (e) {
+
+                const itemId = $(this).attr('data-id');
+
+
+            });
+
+            function dowloadImageUsingKey(itemId) {
+                $.ajax({
+                    url: "/files/download/"+parseInt(itemId),
+                    method: 'get',
+                    success: data => {
+                        console.log(data)
+                        image_url.innerText = data.file
+                    },
+                    failure: error => console.log(error)
+                })
+            }
+
+        })
+
+    </script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+{% include 'base/second_navbar.html' %}
+
+<section>
+	<div class="container">
+        <div class="row m-5">
+            <div class="col s12">
+                <div class="card">
+                    <h3 class="center-align" >Register</h3>
+                <div class="card-content">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button class="btn" type="submit" >register</button>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'login' %}" class="right-align">already have account login here</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
