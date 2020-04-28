@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -55,7 +56,7 @@ def handle_upload_file(request,file, fileName):
     return output_file.name,key
 
 
-
+@login_required()
 def file_uplod_to_server(request):
     """ test upload file and encrypt it"""
     form = EncryptedFileForm(None)

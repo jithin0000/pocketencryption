@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <!-- {% include 'base/navbar.html' %} -->
+
+    <section>
+        {% include 'base/second_navbar.html' %}
+
+        <div class="container mt-5">
+
+            <div class="row">
+                <div class="col s6">
+                    <h3>{{ user.username }}</h3>
+                    <h5>{{ user.email }}</h5>
+                    <p>Adhar : <span>{{ user.adhar_id }}</span></p>
+                    <a href="{% url 'profile_update' pk=object.id %}" class="btn blue">update your profile</a>
+
+                    <h3>Addrss</h3>
+                    <hr>
+                    <p><i class="material-icons">mobile_screen_share</i> <span class="ml-2">{{ object.mobile }}</span> </p>
+                    <p><i class="material-icons">phone</i> <span class="ml-2">{{ object.phone }}</span> </p>
+                    <p>{{ object.address }}</p>
+                </div>
+
+                <div class="col s6">
+
+                    {% if object.profile_picture %}
+                        <img src="{{ object.profile_picture.url }}" alt="profile picture" width="500px" height="500px">
+                    {% else %}
+                        <img src="https://via.placeholder.com/150" alt="profile picture" width="500px" height="500px">
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block js %}
+
+
+    <script>
+
+    </script>
+
+
+{% endblock %}

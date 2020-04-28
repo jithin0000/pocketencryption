@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'customuser', 'cityzen', 'home', 'encryptedfile', 'feedback'
+    'customuser', 'cityzen', 'home', 'encryptedfile', 'feedback',
+    'userprofile'
 
 ]
 
