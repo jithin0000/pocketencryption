@@ -19,21 +19,25 @@
             </div>
 
             <div class="row">
-                {% for item in object_list %}
-                    <div class="col s4">
-                        <div class="card image-card">
-                            <h4 class="center-align" style="padding: 18px 4px;">{{ item.file_name }}</h4>
-                            <div class="card-content">
-                                <p> uploaded at : {{ item.created_at }}</p>
+                {% for encryptedfile in encryptedfile_list %}
+                    <div class="col-lg-12 image-card">
+                        <div class="row card">
+                            <div class="col s6 " style="padding: 8px">
+                                <h4>{{ encryptedfile.file_name }}</h4>
+                                <p class="teal-text">Uploaded at : {{ encryptedfile.created_at }}</p>
+                                <button class="btn btn-flat white-text btn-small brown">view detail</button>
                             </div>
-                            <div class="card-action">
-                                <a href="#" class="blue-text">view file</a>
-                                <a data-id="{{ item.id }}" id="dowload-btn" href="#"><i class="material-icons">vertical_align_bottom</i></a>
-                                <a href="#"><i class="material-icons">delete</i></a>
+                            <div class="col s6" style="padding: 18px">
+                                <div class="right-align">
+                                    <a data-id="{{ encryptedfile.id }}" id="dowload-btn" class="btn-floating btn-flat btn-small blue waves-effect waves-light ">
+                                        <i class="material-icons">vertical_align_bottom</i></a>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
+
             </div>
 
         </div>
@@ -57,14 +61,14 @@
                 const itemId = $(this).attr('data-id');
                 if (password !== "") {
                     dowloadImageUsingKey($(this), itemId, password);
-                }else{
+                } else {
                     alert("nothing Entered")
                 }
 
 
             });
 
-            function dowloadImageUsingKey(element, itemId,password) {
+            function dowloadImageUsingKey(element, itemId, password) {
                 $.ajax({
                     url: "/files/download/" + parseInt(itemId),
                     method: 'post',
@@ -91,7 +95,7 @@
 
                             element.css('text-align', 'center')
 
-                            element.parent().parent().append(a)
+                            element.parent().append(a)
                         } else {
                             alert("incorrect key")
                         }
