@@ -132,6 +132,23 @@ text-transform:uppercase;
 }
 
 
+/*---------- technology section -----------------*/
+#technology {
+	height: 80vh;
+	background-color: black;
+	padding-bottom: 50px;
+
+}
+
+/*---------- join section ---------------*/
+
+#join {
+	background-color: #3E424D;
+	text-align: center;
+	justify-content: center;
+	height: 50vh;
+	padding-top: 5%;
+}
 
 
 
