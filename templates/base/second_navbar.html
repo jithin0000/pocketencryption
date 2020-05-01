@@ -6,9 +6,12 @@
             </a>
             <ul id="nav-mobile" class="right z-depth-0 hide-on-med-and-down">
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'file_list' %}">Files</a></li>
-                <li><a href="{% url 'profile_detail' %}">Profile</a></li>
+                    <li><a href="{% url 'file_list' %}">Files</a></li>
+                    <li><a href="{% url 'profile_detail' %}">Profile</a></li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
             </ul>
         </div>

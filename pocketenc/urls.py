@@ -26,6 +26,7 @@ urlpatterns = [
     path('citizen/', include('cityzen.urls')),
     path('files/', include('encryptedfile.urls')),
     path('detail/', include('userprofile.urls')),
+    path('feedback/', include('feedback.urls')),
 ]
 
 if settings.DEBUG:

@@ -7,8 +7,9 @@ class FeedBack(models.Model):
     """ user feedback model """
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-
     feedback = models.TextField()
+
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title

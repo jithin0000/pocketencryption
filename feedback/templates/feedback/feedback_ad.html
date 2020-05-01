@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+    <section>
+        {% include 'base/second_navbar.html' %}
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col s6">
+                    <h3>Add FeedBack</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                        <input type="submit" class="btn btn-primary" value="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="row">
+        <div class="col-lg-8">
+        </div>
+    </div>
+
+
+{% endblock %}
