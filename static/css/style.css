@@ -150,9 +150,23 @@ text-transform:uppercase;
 	padding-top: 5%;
 }
 
+/*------------register html -----------------------*/
 
+#register {
+	height: 100vh;
+	width: 100%;
+	/*background-image: url("../assets/bg/reg-third.jpg");*/
 
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
 
+#register .register-content {
+	height: 100vh;
+	width: 100%;
+	padding: 5% 5%;
+}
 
 
 

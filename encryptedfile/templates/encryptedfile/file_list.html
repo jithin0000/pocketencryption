@@ -6,41 +6,57 @@
     <section>
         {% include 'base/second_navbar.html' %}
 
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col">
-                    <h3> Files </h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <a href="{% url 'add_file' %}" class="btn">upload new file</a>
-                </div>
-            </div>
+{#        <div class="container mt-5">#}
+{#            <div class="row">#}
+{#                <div class="col">#}
+{#                    <h3> Files </h3>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="row">#}
+{#                <div class="col">#}
+{#                    <a href="{% url 'add_file' %}" class="btn">upload new file</a>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="row">#}
+{#                {% for encryptedfile in encryptedfile_list %}#}
+{#                    <div class="col-lg-12 image-card">#}
+{#                        <div class="row card">#}
+{#                            <div class="col s6 " style="padding: 8px">#}
+{#                                <h4>{{ encryptedfile.file_name }}</h4>#}
+{#                                <p class="teal-text">Uploaded at : {{ encryptedfile.created_at }}</p>#}
+{#                                <a href="{% url 'file_detail' pk=encryptedfile.id %}" class="btn btn-flat white-text btn-small brown">view detail</a>#}
+{#                            </div>#}
+{#                            <div class="col s6" style="padding: 18px">#}
+{#                                <div class="right-align">#}
+{#                                    <a data-id="{{ encryptedfile.id }}" id="dowload-btn" class="btn-floating btn-flat btn-small blue waves-effect waves-light ">#}
+{#                                        <i class="material-icons">vertical_align_bottom</i></a>#}
+{##}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{##}
+{#            </div>#}
+{##}
+{#        </div>#}
 
-            <div class="row">
-                {% for encryptedfile in encryptedfile_list %}
-                    <div class="col-lg-12 image-card">
-                        <div class="row card">
-                            <div class="col s6 " style="padding: 8px">
-                                <h4>{{ encryptedfile.file_name }}</h4>
-                                <p class="teal-text">Uploaded at : {{ encryptedfile.created_at }}</p>
-                                <a href="{% url 'file_detail' pk=encryptedfile.id %}" class="btn btn-flat white-text btn-small brown">view detail</a>
-                            </div>
-                            <div class="col s6" style="padding: 18px">
-                                <div class="right-align">
-                                    <a data-id="{{ encryptedfile.id }}" id="dowload-btn" class="btn-floating btn-flat btn-small blue waves-effect waves-light ">
-                                        <i class="material-icons">vertical_align_bottom</i></a>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-
-            </div>
-
-        </div>
+      <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a href="#test1">Test 1</a></li>
+        <li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
+        <li class="tab col s3 disabled"><a href="#test3">Disabled Tab</a></li>
+        <li class="tab col s3"><a href="#test4">Test 4</a></li>
+      </ul>
+    </div>
+    <div id="test1" class="col s12">Test 1</div>
+    <div id="test2" class="col s12">Test 2</div>
+    <div id="test3" class="col s12">Test 3</div>
+    <div id="test4" class="col s12">Test 4</div>
+  </div>
     </section>
 
 {% endblock %}
@@ -50,6 +66,10 @@
     <script>
 
         $(document).ready(function () {
+
+
+                $('.tabs').tabs();
+
 
 
             const image_url = document.getElementById('image_url');

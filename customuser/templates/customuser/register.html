@@ -2,31 +2,38 @@
 
 
 {% block content %}
-{% include 'base/second_navbar.html' %}
+    {% load static %}
+    {% include 'base/second_navbar.html' %}
 
-<section>
-	<div class="container">
-        <div class="row m-5">
-            <div class="col s12">
-                <div class="card">
-                    <h3 class="center-align" >Register</h3>
-                <div class="card-content">
-                    <form method="POST">
+    <section id="register">
+        <div class="row">
+            <div class="col s6">
+                <div class="register-content ">
+                    <h3>Register</h3>
+                    <p class="black-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio fuga, iure! At consectetur,
+                        consequatur deleniti esse laboriosam libero modi officiis quidem sit tempora veritatis!,
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium aliquid animi autem
+                        consequuntur eligendi et exercitationem fugit id illo, itaque iure libero minima neque quaerat
+                        quas recusandae repudiandae sunt, tempore voluptatem?</p>
+
+                    <div class="mt-5">
+                        <a href="{% url 'login' %}" class="btn blue white-text">Login Here</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s6" style="margin-top: 8px">
+                <div class="card z-depth-0 " style="padding:5%">
+
+                    <form method="post">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <button class="btn" type="submit" >register</button>
+                        <input type="submit" class="btn teal" value="register">
                     </form>
                 </div>
-                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col">
-                <a href="{% url 'login' %}" class="right-align">already have account login here</a>
-            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 {% endblock %}

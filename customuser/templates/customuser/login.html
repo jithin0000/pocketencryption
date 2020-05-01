@@ -2,31 +2,38 @@
 
 
 {% block content %}
-{% include 'base/second_navbar.html' %}
+    {% include 'base/second_navbar.html' %}
 
-<section>
-	<div class="container">
-        <div class="row mt-5">
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-content">
-                        <h3 class="center-align" >Login</h3>
-                <form  method="POST">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button class="btn" type="submit" >Login</button>
-                </form>
+    <section>
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col s6">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="center-align">Login</h3>
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button class="btn" type="submit">Login</button>
+                            </form>
+                        </div>
                     </div>
+                </div>
+                <div class="col s6">
+                    <h3></h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi dignissimos dolorum ea, eum hic
+                        impedit ipsam ipsum, iste laborum molestiae nostrum, optio quis reprehenderit tempora
+                        voluptatem? Debitis et eveniet modi nihil reiciendis rem sunt vel?</p>
+                    <a href="{% url 'register' %}" class="mt-5 btn blue">Register Here</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'register' %}" class="right-align">Not have account Register here</a>
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col">
-                <a href="{% url 'register' %}" class="right-align">Not have account Register here</a>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
 {% endblock %}
