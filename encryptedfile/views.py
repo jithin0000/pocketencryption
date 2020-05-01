@@ -1,3 +1,4 @@
+from django.contrib.admin.models import LogEntry
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
@@ -16,6 +17,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 # Create your views here.
 from customuser.models import MyUser
+from userprofile.models import UserProfile
 from .models import EncryptedFile
 from .forms import EncryptedFileForm, CreateFileForm
 import os
@@ -46,10 +48,25 @@ class FileListView(LoginRequiredMixin, ListView):
     model = EncryptedFile
     template_name = "encryptedfile/file_list.html"
 
+
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset()
         queryset = queryset.filter(user=self.request.user)
         return queryset
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        print(self.request.user.id)
+        log_entries = []
+        logs = LogEntry.objects.all()
+        for i in logs:
+            if i.__str__().__contains__(self.request.user.email):
+                print("inside this",self.request.user.email)
+                log_entries.append(i.__str__())
+        profile = get_object_or_404(UserProfile, owner=self.request.user)
+        context['log_entries']=log_entries
+        context['profile'] = profile
+        return context
 
 
 def handle_upload_file(request, file, fileName):
@@ -158,7 +175,7 @@ def download_encrypted_file(request, pk):
     """ reply to ajax request to download """
     encypted_file = get_object_or_404(EncryptedFile, pk=pk)
 
-    sendMailToUser(request, encypted_file.file_name)
+    # sendMailToUser(request, encypted_file.file_name)
 
     isAutheticated = False
 

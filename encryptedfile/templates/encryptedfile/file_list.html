@@ -8,48 +8,31 @@
         <div id="particles-js" style="display: none">
         </div>
 
-        {#        <div class="container mt-5">#}
-        {#            <div class="row">#}
-        {#                <div class="col">#}
-        {#                    <h3> Files </h3>#}
-        {#                </div>#}
-        {#            </div>#}
-        {#            <div class="row">#}
-        {#                <div class="col">#}
-        {#                    <a href="{% url 'add_file' %}" class="btn">upload new file</a>#}
-        {#                </div>#}
-        {#            </div>#}
-        {##}
-        {#            <div class="row">#}
-        {#                {% for encryptedfile in encryptedfile_list %}#}
-        {#                    <div class="col-lg-12 image-card">#}
-        {#                        <div class="row card">#}
-        {#                            <div class="col s6 " style="padding: 8px">#}
-        {#                                <h4>{{ encryptedfile.file_name }}</h4>#}
-        {#                                <p class="teal-text">Uploaded at : {{ encryptedfile.created_at }}</p>#}
-        {#                                <a href="{% url 'file_detail' pk=encryptedfile.id %}" class="btn btn-flat white-text btn-small brown">view detail</a>#}
-        {#                            </div>#}
-        {#                            <div class="col s6" style="padding: 18px">#}
-        {#                                <div class="right-align">#}
-        {#                                    <a data-id="{{ encryptedfile.id }}" id="dowload-btn" class="btn-floating btn-flat btn-small blue waves-effect waves-light ">#}
-        {#                                        <i class="material-icons">vertical_align_bottom</i></a>#}
-        {##}
-        {#                                </div>#}
-        {#                            </div>#}
-        {#                        </div>#}
-        {#                    </div>#}
-        {#                {% endfor %}#}
-        {##}
-        {#            </div>#}
-        {##}
-        {#        </div>#}
-
         <div class="row">
             <div class="col s4 mt-5">
+
                 <div class="container">
-                    <img src="https://source.unsplash.com/random" alt="profile image" width="250px"
-                         height="250px"
-                         class="profile-img">
+                    {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture.url }}" alt="profile image" width="250px"
+                             height="250px"
+                             class="profile-img">
+                    {% else %}
+                        <img src="https://via.placeholder.com/150" alt="profile image" width="250px"
+                             height="250px"
+                             class="profile-img">
+
+
+                    {% endif %}
+
+
+                    <p class="mt-5 grey-text">User Actions</p>
+                    {% for log in log_entries %}
+                        <p>{{ log }}</p>
+                    {% endfor %}
+
+                    <a href="{% url 'profile_update' pk=profile.id %}">Edit profile</a>
+
+
                 </div>
             </div>
             <div class="col s8 mt-5">
@@ -57,6 +40,7 @@
                     <h4>{{ user.username | capfirst }}</h4>
                     <i class="material-icons">location_on</i>
                     <p class="blue-grey-text">address location</p>
+                    <a href="{% url 'add_file' %}" class="btn">upload new file</a>
                 </div>
                 <a href="#">{{ user.email | capfirst }}</a>
                 <hr class="blue-grey">
@@ -68,26 +52,50 @@
                             <li class="tab col s3"><a class="active" href="#test2">About</a></li>
                         </ul>
                     </div>
-                    <div id="test1" class="col s12">Test 1</div>
+                    <div id="test1" class="col s12">
+                        {% if encryptedfile_list.count <= 0 %}
+                            <div class="yellow lighten-3 mt-5" style="padding: 5%">no files added</div>
+                        {% endif %}
+                        {% for encryptedfile in encryptedfile_list %}
+                            <div class="col-lg-8 image-card">
+                                <div class="row card z-depth-0">
+                                    <div class="col s4 " style="padding: 8px">
+                                        <h4>{{ encryptedfile.file_name }}</h4>
+                                        <p class="teal-text">Uploaded at : {{ encryptedfile.created_at }}</p>
+                                        <a href="{% url 'file_detail' pk=encryptedfile.id %}"
+                                           class="btn btn-flat white-text btn-small brown">view detail</a>
+                                    </div>
+                                    <div class="col s4" style="padding: 18px">
+                                        <div class="right-align">
+                                            <a data-id="{{ encryptedfile.id }}" id="dowload-btn"
+                                               class="btn-floating btn-flat btn-small blue waves-effect waves-light ">
+                                                <i class="material-icons">vertical_align_bottom</i></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
                     <div id="test2" class="col s12">
-                        <h6 class="grey-text" >Contact Information</h6>
+                        <h6 class="grey-text">Contact Information</h6>
                         <div class="contact-item">
                             <p class="grey-text"> phone Number : </p>
-                            <p > 123456 </p>
+                            <p> 123456 </p>
                         </div>
-                         <div class="contact-item">
+                        <div class="contact-item">
                             <p class="grey-text"> Addrss : </p>
-                            <p > first, second ,third </p>
+                            <p> first, second ,third </p>
                         </div>
 
-                         <div class="contact-item">
+                        <div class="contact-item">
                             <p class="grey-text"> Email : </p>
-                            <p > {{ user.email | capfirst }} </p>
+                            <p> {{ user.email | capfirst }} </p>
                         </div>
 
-                         <div class="contact-item">
+                        <div class="contact-item">
                             <p class="grey-text"> Date of Birth : </p>
-                            <p > date of birth </p>
+                            <p> date of birth </p>
                         </div>
                     </div>
                 </div>
