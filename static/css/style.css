@@ -1,12 +1,15 @@
-@import url('https://fonts.googleapis.com/css?family=Teko:600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Teko:wght@400;600&display=swap');
 html{
 	margin:0;
 	padding:0;
 
 }
 
-h1,h2,h3,h4,h5,h6{
-
+body{
+	font-family: 'Lato', sans-serif;
+}
+h1,h2,h3{
+	margin-top: 8px !important;
 	font-family:'Teko';
 }
 
@@ -18,19 +21,110 @@ text-transform:uppercase;
 	margin-top: 5%;
 }
 
-#header{
-width:100%;
-height:100vh;
-background: linear-gradient(0deg, rgba(11,11,11,1) 0%, rgba(51,50,48,1) 100%);
-color: white;
-}
-
-.bg-first{
-
-	width:100%;
+#header {
+	width: 100%;
 	height: 100vh;
-	background-image:url('/static/assets/bg/first_bg.svg');
-	background-position: center center;
-	background-size: contain;
-	background-repeat: no-repeat;
+	background: black;
+	color: white;
+	position: relative;
 }
+
+.content {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	/*padding-left: 45%;*/
+	padding-top: 15%;
+}
+
+.ml-2{
+	margin-left: 2%;
+}
+
+/*-------- home page html -----------*/
+
+.top{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.bottom{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: sans-serif;
+}
+.secondary-txt {
+	font-weight: bold;
+	color: #929AA0;
+	text-transform: uppercase;
+	size: 2em;
+}
+
+
+/*------------patner section --------------*/
+
+#patner-section {
+	height: 45vh;
+	background-color: #1E2125;
+}
+
+
+/*--- youtube video section -------*/
+
+#video-sec {
+	height: 80vh;
+	background-color: #292E33;
+	padding: 5%;
+}
+#video-sec.video-content {
+	height: 100%;
+	width: 100%;
+}
+
+
+/*----- features section -----*/
+
+#features {
+	height: 80vh;
+	background-color: #1E2125;
+	padding:5%;
+}
+#features .feature-icon {
+	color: #5b80b2;
+	margin-top: 5px;
+	font-weight: bold;
+	font-size: 35px;
+	padding-left: 25px;
+}
+
+#features .feature-item {
+	display: flex;
+	/*align-items: center;*/
+
+	text-transform: capitalize;
+}
+.item-text {
+	font-family: Teko;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

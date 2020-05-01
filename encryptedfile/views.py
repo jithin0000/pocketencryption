@@ -17,7 +17,7 @@ from django.views.generic.list import ListView
 # Create your views here.
 from customuser.models import MyUser
 from .models import EncryptedFile
-from .forms import EncryptedFileForm
+from .forms import EncryptedFileForm, CreateFileForm
 import os
 from django.conf import settings
 from Crypto.Cipher import AES
@@ -78,10 +78,10 @@ def handle_upload_file(request, file, fileName):
 @login_required()
 def file_uplod_to_server(request):
     """ test upload file and encrypt it"""
-    form = EncryptedFileForm(None)
+    form = CreateFileForm(None)
 
     if request.method == 'POST':
-        form = EncryptedFileForm(request.POST, request.FILES)
+        form = CreateFileForm(request.POST, request.FILES)
         if form.is_valid():
             form_save = form.save(commit=False)
             fileInput = request.FILES['file_url']
@@ -129,7 +129,7 @@ def sendMailToUser(request, name):
     # })
     #
     message = request.user.username + " try to get file " + name
-    to_email = "mbjithinbabu@gmail.com"
+    to_email = request.user.email
     email = EmailMessage(
         mail_subject, message, to=[to_email]
     )

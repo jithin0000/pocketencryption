@@ -1,40 +1,56 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
 
 {% block content %}
 
-<section id="header">
-	{% include 'base/navbar.html' %}
-	<div class="container">
-		<div class="row my-auto">
-			<div class="col s6 mt-5">
-				<p>Your files ...</p>
-				<h3 class="title">Safe and secure</h3>
-				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-					ut
-					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-					ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-				</p>
-	
-				<div class="row">
-					<a class="btn btn-medium orange" href="{% url 'add_file' %}">
-						<i class="material-icons">cloud_upload</i>
-						upload a file </a>
-					<a class="btn " href="{% url 'register' %}">sign up</a>
-				</div>
-			</div>
-	
-			<div class="col s6 bg-first">
-			</div>
-		</div>
-	</div>
-</section>
-<section>
+    <section id="header">
+        {% include 'base/navbar.html' %}
+        <div id="particles-js">
+        </div>
+        <div class="content">
+            <div class="top">
+                <img src="{% static 'assets/bg/hack.svg' %}" width="150px" height="150px" alt="">
+                <div class="right-text ml-2">
+                    <h1>AES Encryption</h1>
+                    <h3 class="secondary-txt">Protect Your Files</h3>
+                </div>
+            </div>
+            <div class="bottom">
+                <h5><span class="red-text">Decode@Files~:# </span> <span id="anim-text">%$%^d##mklweyroi$%^^*14{](&%#@789*9*^54112sd#$%%! </span>
+                </h5>
+            </div>
 
-	<div class="container">
-		<div class="row">
-		</div>
-	</div>
-</section>
+            <div class="mt-5">
+                <div class="row">
+                    <div class="center">
+
+                        <a href="{% url 'file_list' %}" class="btn black white-text">Uplod your files</a>
+                        <a href="{% url 'register' %}" class="btn green white-text ml-2">sign up</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+    {% include 'base/patners.html' %}
+    {% include 'base/video-sec.html' %}
+    {% include 'base/features.html' %}
+
+{% endblock %}
+
+{% block js %}
+
+    <script>
+        gsap.registerPlugin(TextPlugin)
+        let timeLine = gsap.timeline()
+        timeLine.to('#anim-text', 4, {
+            text: {value: "Your Data Is Secure Here !!!", padSpace: false},
+            ease: Linear.easeNone
+        })
+            .to('#anim-text', 1, {color: '#86C03C'});
+
+
+    </script>
 
 {% endblock %}
