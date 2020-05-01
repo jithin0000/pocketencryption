@@ -36,13 +36,15 @@
                 </div>
             </div>
             <div class="col s8 mt-5">
-                <div style="display: flex; align-items: center;" class="header">
-                    <h4>{{ user.username | capfirst }}</h4>
-                    <i class="material-icons">location_on</i>
-                    <p class="blue-grey-text">address location</p>
-                    <a href="{% url 'add_file' %}" class="btn">upload new file</a>
+                <div class="header">
+                        <h4>{{ user.username | capfirst }}</h4>
+                        <div class="right">
+                            <i class="material-icons">location_on</i>
+                        <p class="blue-grey-text"> {{ profile.address }}</p>
+                        </div>
                 </div>
                 <a href="#">{{ user.email | capfirst }}</a>
+                    <a href="{% url 'add_file' %}" class="btn ml-2">upload new file</a>
                 <hr class="blue-grey">
 
                 <div class="row ">
@@ -81,11 +83,11 @@
                         <h6 class="grey-text">Contact Information</h6>
                         <div class="contact-item">
                             <p class="grey-text"> phone Number : </p>
-                            <p> 123456 </p>
+                            <p> {{ profile.mobile }} </p>
                         </div>
                         <div class="contact-item">
                             <p class="grey-text"> Addrss : </p>
-                            <p> first, second ,third </p>
+                            <p> {{ profile.address}}</p>
                         </div>
 
                         <div class="contact-item">
@@ -95,7 +97,7 @@
 
                         <div class="contact-item">
                             <p class="grey-text"> Date of Birth : </p>
-                            <p> date of birth </p>
+                            <p> {{ profile.date_of_birth }}</p>
                         </div>
                     </div>
                 </div>

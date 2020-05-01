@@ -173,3 +173,26 @@ text-transform:uppercase;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 }
+
+.header {
+	display: flex;
+	align-items: center;
+
+}
+.header .right {
+	display: flex;
+	align-items: center;
+	margin-left: 15px;
+	margin-top: 16px;
+	text-transform: capitalize;
+}
+
+
+
+
+
+
+
+
+
+
